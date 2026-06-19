@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>EduMate AI</title>
+</head>
+<body>
+    <h1>EduMate AI</h1>
+    <input id="msg" placeholder="Ask a question">
+    <button onclick="send()">Send</button>
+    <p id="out"></p>
+
+<script>
+async function send(){
+    let m=document.getElementById("msg").value;
+    let r=await fetch("/chat",{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({message:m})
+    });
+    let d=await r.json();
+    document.getElementById("out").innerText=d.response;
+}
+</script>
+</body>
+</html>
+
