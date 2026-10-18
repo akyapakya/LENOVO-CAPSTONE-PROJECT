@@ -1,27 +1,141 @@
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>EduMate AI</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduMate AI | Learning Assistant</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>EduMate AI</h1>
-    <input id="msg" placeholder="Ask a question">
-    <button onclick="send()">Send</button>
-    <p id="out"></p>
 
-<script>
-async function send(){
-    let m=document.getElementById("msg").value;
-    let r=await fetch("/chat",{
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({message:m})
-    });
-    let d=await r.json();
-    document.getElementById("out").innerText=d.response;
-}
-</script>
+    <div class="app">
+
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-icon">E</div>
+                <div>
+                    <h2>EduMate <span>AI</span></h2>
+                    <p>Learning Assistant</p>
+                </div>
+            </div>
+
+            <button class="new-chat" onclick="newChat()">
+                <span>＋</span> New conversation
+            </button>
+
+            <div class="side-section">
+                <p class="side-label">YOUR LEARNING SPACE</p>
+
+                <div class="side-item active">✦ &nbsp; Study Assistant</div>
+                <div class="side-item">⌘ &nbsp; Programming</div>
+                <div class="side-item">▤ &nbsp; Computer Science</div>
+            </div>
+
+            <div class="sidebar-bottom">
+                <div class="status-dot"></div>
+                <div>
+                    <strong>Ready to learn</strong>
+                    <p>Educational support</p>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main">
+
+            <header class="topbar">
+                <div>
+                    <p class="eyebrow">YOUR PERSONAL STUDY SPACE</p>
+                    <h3>Study Assistant</h3>
+                </div>
+                <div class="online-badge">
+                    <span></span> Online
+                </div>
+            </header>
+
+            <section class="content" id="content">
+
+                <div class="welcome" id="welcome">
+                    <div class="welcome-icon">✦</div>
+
+                    <p class="eyebrow">WELCOME TO EDUMATE</p>
+                    <h1>Learn something<br><span>new today.</span></h1>
+
+                    <p class="welcome-text">
+                        Your companion for programming and computer science.
+                        Choose a topic or ask a question to get started.
+                    </p>
+
+                    <div class="suggestions">
+                        <button onclick="askQuestion('Explain OOP')">
+                            <span class="suggestion-icon purple">⌘</span>
+                            <span>
+                                <strong>Object-Oriented Programming</strong>
+                                <small>Understand the four pillars of OOP</small>
+                            </span>
+                            <span class="suggestion-arrow">↗</span>
+                        </button>
+
+                        <button onclick="askQuestion('Explain Python')">
+                            <span class="suggestion-icon green">{ }</span>
+                            <span>
+                                <strong>Learn Python</strong>
+                                <small>Explore a popular programming language</small>
+                            </span>
+                            <span class="suggestion-arrow">↗</span>
+                        </button>
+
+                        <button onclick="askQuestion('Explain machine learning')">
+                            <span class="suggestion-icon orange">◈</span>
+                            <span>
+                                <strong>Machine Learning</strong>
+                                <small>Discover how computers learn from data</small>
+                            </span>
+                            <span class="suggestion-arrow">↗</span>
+                        </button>
+
+                        <button onclick="askQuestion('Explain data structures')">
+                            <span class="suggestion-icon blue">▦</span>
+                            <span>
+                                <strong>Data Structures</strong>
+                                <small>Learn stacks, queues, trees and more</small>
+                            </span>
+                            <span class="suggestion-arrow">↗</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="chat-messages" id="messages"
+                     aria-live="polite"></div>
+
+            </section>
+
+            <footer class="composer-area">
+                <form class="composer" id="chatForm">
+                    <input
+                        id="msg"
+                        type="text"
+                        placeholder="Ask about Python, OOP, AI..."
+                        autocomplete="off"
+                        aria-label="Your question"
+                    >
+
+                    <button type="submit" id="sendBtn">
+                        <span>Send</span>
+                        <span class="send-arrow">↑</span>
+                    </button>
+                </form>
+
+                <p class="disclaimer">
+                    EduMate provides educational assistance on supported topics.
+                </p>
+            </footer>
+
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
-
